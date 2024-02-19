@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {Learning ,Cards} = require("../db/models");
-const {calculDelayDays,calculateDelayByCategory } = require('../calculDelay');
+const { startDelaySchedule }= require('../calculDelay');
 
 const CATEGORY_VALUES = ['FIRST', 'SECOND', 'THIRD', 'FOURTH', 'FIFTH', 'SIXTH', 'SEVENTH', 'DONE'];
 
@@ -58,6 +58,7 @@ if (isValid) {
       card.category = nextCategory;
     }
     await card.save();
+    startDelaySchedule('FIRST')
     return res.status(200).json({ isValid: true }).end();
   } else {
     card.category = 'FIRST'; 
@@ -67,9 +68,6 @@ if (isValid) {
     
   }
 
-   // Appeler calculDelayDays avec le délai calculé en fonction de la catégorie
-   const delay = calculateDelayByCategory(card.category);
-   await calculDelayDays(card.category, delay);
 
    
   } catch (err) {
