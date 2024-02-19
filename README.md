@@ -14,5 +14,7 @@ Pour lancer les tests côté back se mettre dans le dossier /server :
 
 1. npm test
 
+Pour lancer les tests côté front se mettre dans le dossier /client :
 
+1. npm test
 
