@@ -4,7 +4,7 @@ Pour démarrer l'application côté back nous avons mis en place une base de don
 
 1. docker compose up -d
 
-2. npm run start pour démarrer le serveur node sur le port 5000
+2. npm run start dans le dossier /server pour démarrer le serveur node sur le port 5000
 
 Pour démarrer l'application côté front nous avons mis en place une petite application avec React :
 
@@ -17,3 +17,4 @@ Pour lancer les tests côté back se mettre dans le dossier /server :
 Pour lancer les tests côté front se mettre dans le dossier /client :
 
 1. npm test
+
