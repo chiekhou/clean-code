@@ -8,4 +8,11 @@ Pour démarrer l'application côté back nous avons mis en place une base de don
 
 Pour démarrer l'application côté front nous avons mis en place une petite application avec React :
 
-1.  npm run start dans le dossier /client pour démarrer l'application sur le port 3000
+1.  npm run start pour démarrer l'application sur le port 3000
+
+Pour lancer les tests côté back se mettre dans le dossier /server :
+
+1. npm test
+
+
+
