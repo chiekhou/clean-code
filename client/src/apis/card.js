@@ -5,7 +5,7 @@ export async function getAllCards() {
       `${CARD_API}`, {
         method: "GET",
       });
-    if (response.ok) {
+    if (response) {
       const body = await response.json();
       console.log(body)
       return body;
