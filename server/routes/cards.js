@@ -13,7 +13,7 @@ router.post('/', async (req, res) => {
         tag
     });
 
-    res.json(newCard);
+    res.status(201).json(newCard);
   } catch (err) {
     console.error(err);
   }
@@ -22,10 +22,10 @@ router.post('/', async (req, res) => {
 router.get('/', async (req, res) => {
   try {
     const cards = await Cards.findAll();
-    res.json(cards);
+    res.status(200).json({cards});
   
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    return res.status(500).send(error.message);
   }
 });
 
@@ -45,7 +45,7 @@ router.patch('/:id/answer',async (req, res) => {
 
  if (!card) {
   return res.status(404).json({ error: "Carte d'apprentissage non trouvée" });
-}
+ }
 
 
 if (isValid) {
@@ -58,11 +58,12 @@ if (isValid) {
       card.category = nextCategory;
     }
     await card.save();
-    return res.status(204).end();
+    return res.status(200).json({ isValid: true }).end();
   } else {
     card.category = 'FIRST'; 
+    learning.isValid = false
     await card.save();
-    return res.status(200).json({ message: 'Réponse incorrecte, réessayez plus tard' });
+    return res.status(400).json({ isValid: false,message: 'Réponse incorrecte, réessayez plus tard' }).end();
     
   }
 
@@ -71,10 +72,11 @@ if (isValid) {
    await calculDelayDays(card.category, delay);
 
    
-} catch (err) {
+  } catch (err) {
   console.error(err);
   res.status(500).json({ error: 'Erreur lors de la gestion de la réponse' });
-}
+ }
+
 });
 
 router.get('/quizz', async (req, res) => {
@@ -83,7 +85,7 @@ try {
     include: [Cards],
   });
  
-  res.json(learnings);
+  res.status(200).json({learnings});
 
 } catch (err) {
   console.error(err);
