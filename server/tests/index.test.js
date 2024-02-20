@@ -21,7 +21,7 @@ describe('POST /cards', () => {
     const res = await request(app).get('/cards');
     expect(res.statusCode).toEqual(200);
     expect(res.body).toHaveProperty('cards');
-    expect(res.body.cards).toHaveLength(31); // nombre de cards dans votre base de données
+    expect(res.body.cards).toHaveLength(31); 
   });
 
 
@@ -29,7 +29,7 @@ describe('POST /cards', () => {
     const res = await request(app).get('/cards/quizz');
     expect(res.statusCode).toEqual(200);
     expect(res.body).toHaveProperty('learnings');
-    expect(res.body.learnings).toHaveLength(17); // nombre de cards apprise  dans votre base de données
+    expect(res.body.learnings).toHaveLength(17); 
   });
 
   it('should update a learning patch', async () => {
@@ -42,6 +42,43 @@ describe('POST /cards', () => {
     expect(res.statusCode).toEqual(200);
     expect(res.body.isValid).toBe(true)
   });
+  it('should delete a specific card by its ID', async () => {
+    const cardId = 1;
+    const response = await request(app).delete(`/cards/${cardId}`);
+
+    expect(response.status).toBe(204); 
+  });
+
+ 
+  it('should fetch all cards associated with a specific tag', async () => {
+    const tag = 'Programming';
+    const response = await request(app).get(`/cards/tag/${tag}`);
+
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('cards');
+    
+  });
+
+  
+  it('should return 404 if card to update does not exist', async () => {
+    const invalidCardId = 999;
+    const response = await request(app)
+      .patch(`/cards/${invalidCardId}/answer`)
+      .send({
+        isValid: true,
+      });
+
+    expect(response.status).toBe(404);
+  });
+
+  
+  it('should return 404 if card to delete does not exist', async () => {
+    const invalidCardId = 999;
+    const response = await request(app).delete(`/cards/${invalidCardId}`);
+
+    expect(response.status).toBe(404);
+  });
+
 
   afterAll(async () => {
     await new Promise(resolve => setTimeout(resolve, 1000));
