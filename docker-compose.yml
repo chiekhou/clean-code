@@ -10,14 +10,14 @@ services:
       POSTGRES_PASSWORD: pgPassword
       POSTGRES_DB: database
 
-  dbtest:
-    image: postgres
-    ports:
-      - 5432:5432
-    environment:
-      POSTGRES_USER: pgTest
-      POSTGRES_PASSWORD: pgTest
-      POSTGRES_DB: database
+  # dbtest:
+  #   image: postgres
+  #   ports:
+  #     - 5432:5432
+  #   environment:
+  #     POSTGRES_USER: pgTest
+  #     POSTGRES_PASSWORD: pgTest
+  #     POSTGRES_DB: database
 
   adminer:
     image: adminer
