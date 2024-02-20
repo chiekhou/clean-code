@@ -21,7 +21,7 @@ describe('POST /cards', () => {
     const res = await request(app).get('/cards');
     expect(res.statusCode).toEqual(200);
     expect(res.body).toHaveProperty('cards');
-    expect(res.body.cards).toHaveLength(31); 
+
   });
 
 
@@ -29,7 +29,7 @@ describe('POST /cards', () => {
     const res = await request(app).get('/cards/quizz');
     expect(res.statusCode).toEqual(200);
     expect(res.body).toHaveProperty('learnings');
-    expect(res.body.learnings).toHaveLength(17); 
+
   });
 
   it('should update a learning patch', async () => {

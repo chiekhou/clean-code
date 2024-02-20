@@ -9,19 +9,24 @@ const DELAYS_BY_CATEGORY = {
   DONE: null,
 };
 
-const calculDelayDays = async (category, delay) => {
-    setTimeout(() => {
-      reviewFlashcards(category); 
-      const nextCategory = category < 7 ? category + 1 : 1; 
-      const nextDelay = delay * 2;
-      reviewFlashcardsWithDelay(nextCategory, nextDelay); 
-    }, delay * 24 * 60 * 60 * 1000); 
-  }
-
 
 const calculateDelayByCategory = async (category) => {
-  return DELAYS_BY_CATEGORY[category] ?? 0; // Retourne le délai associé à la catégorie, ou 0 si la catégorie n'existe pas
+  return DELAYS_BY_CATEGORY[category] ?? 0; 
 };
 
 
-  module.exports = calculDelayDays,calculateDelayByCategory;
+const scheduleNextDelay = async (category, delay) => {
+  const nextCategory = category < 7 ? category + 1 : 1;
+  const nextDelay = calculateDelayByCategory(nextCategory);
+
+  setTimeout(async () => {
+    await scheduleNextDelay(nextCategory, nextDelay);
+  }, delay * 24 * 60 * 60 * 1000); 
+}
+
+const startDelaySchedule = async (initialCategory) => {
+  const initialDelay = calculateDelayByCategory(initialCategory);
+  await scheduleNextDelay(initialCategory, initialDelay);
+}
+
+module.exports = { startDelaySchedule };

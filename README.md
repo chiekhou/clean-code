@@ -14,6 +14,12 @@ Pour lancer les tests côté back se mettre dans le dossier /server :
 
 1. npm test
 
+
+Pour lancer les tests côté front se mettre dans le dossier /client :
+
+1. npm test
+
+
 ## Architecture de l'Application Leitner - README
 
 ### Responsabilités des Briques Techniques :
@@ -55,6 +61,5 @@ Pour lancer les tests côté back se mettre dans le dossier /server :
 5. L'Adaptateur Entrées/Sorties gère également les interactions avec les services externes, tels que la notification pour le déclenchement des questionnaires à l'heure spécifiée par l'utilisateur, et assure la cohérence des données échangées.
 
 Cette architecture permet une séparation claire des responsabilités et facilite la maintenance, l'évolutivité et le test de l'application. Les interactions entre les différentes briques techniques sont définies de manière à assurer un flux de données cohérent et une expérience utilisateur fluide.
-
 
 
